@@ -1,0 +1,2 @@
+Drivers for the nRF24L01 chipset. 
+Includes SPI drivers for PIC24F16KA102
