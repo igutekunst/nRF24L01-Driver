@@ -15,7 +15,6 @@ check: GCC-exists
 GCC-exists: ; @which pic30-gcc > /dev/null
 
 
-all: $(SOURCES) $(EXECUTABLE) $(hex)
 	
 $(EXECUTABLE): $(OBJECTS)$
 	$(CC)  $(EXTRA_CFLAGS) $(OBJECTS) -$(LDFLAGS) -o $(EXECUTABLE)
@@ -37,4 +36,5 @@ clean:
 	rm $(EXECUTABLE)
 
 
+all: $(SOURCES) $(EXECUTABLE) $(hex)
 
