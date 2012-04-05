@@ -14,22 +14,22 @@ LANGUAGE:= c
 HEAP_SIZE=0
 
 
+#Serial Port
+USERPORT := `ls /dev/tty.usb*`
+
 SHELL	= /bin/sh
 INCLUDE = -I${INC_DIR}
-CFLAGS  = -g -omf=elf \
+CFLAGS  = -g \
 					-c \
-					-x ${LANGUAGE}  \
+					-Werror-implicit-function-declaration \
+					-Wshadow			\
 					-mcpu=${PIC_TYPE} \
 					${INCLUDE} 
 
 LINKER_SCRIPT = p${PIC_TYPE}.gld
-EXTRA_CFLAGS = -omf=elf \
-							 -mcpu=${PIC_TYPE} \
+EXTRA_CFLAGS =  -mcpu=${PIC_TYPE}
 
-LDFLAGS = -Wl, \
-					--no-check-sections,
-					--heap=${HEAP_SIZE}, \
-					-T${LINKER_SCRIPT}
+LDFLAGS = -Wl,--no-check-sections,--heap=${HEAP_SIZE},-T${LINKER_SCRIPT}
 
 
 

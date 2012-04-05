@@ -1,2 +1,18 @@
 Drivers for the nRF24L01 chipset. 
 Includes SPI drivers for PIC24F16KA102
+
+
+==Usage==
+* Clone the repository
+* Install the pic30 toolchain from microchip
+* edit toolchain-settings.mk to point to the correct location.
+* Edit the Makefile appropriately to add new source files
+
+
+make hex will create an intel hex file ready for uploading.
+
+
+make program is not implemented, but will at some point attempt to upload the code using the guteboot bootloader, or the ds30 bootloader.
+
+
+

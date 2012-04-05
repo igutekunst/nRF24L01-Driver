@@ -5,19 +5,20 @@ SOURCES:= ${SRC_DIR}/main.c \
 
 # end of normal editable sections
 
-
+#-MD makes file.c.d with makefile style dependencies
 
 OBJECTS=$(SOURCES:.c=.o)
 
 EXECUTABLE=$(DIST_DIR)/$(NAME).elf
 
+all: hex
 check: GCC-exists
 GCC-exists: ; @which pic30-gcc > /dev/null
 
 
 	
 $(EXECUTABLE): $(OBJECTS)$
-	$(CC)  $(EXTRA_CFLAGS) $(OBJECTS) -$(LDFLAGS) -o $(EXECUTABLE)
+	$(CC)  $(EXTRA_CFLAGS) $(OBJECTS) $(LDFLAGS) -o $(EXECUTABLE)
 
 .c.o:
 	${CC} ${CFLAGS} $< -o $@
@@ -25,16 +26,19 @@ $(EXECUTABLE): $(OBJECTS)$
 
 
 hex: $(EXECUTABLE)
-	$(BIN2HEX) $(EXECUTABLE) -omf=elf
+	$(BIN2HEX) $(EXECUTABLE) 
 	
 
-program:
 
 
 clean:
-	rm $(SRC_DIR)/*.o
-	rm $(EXECUTABLE)
+	$(RM) $(SRC_DIR)/*.o
+	$(RM) $(EXECUTABLE)
+	$(RM) dist/$(NAME).hex
+
+program:
+	$(PROG) --dev=$(PROG) --hex=dist/$(NAME).hex
 
 
-all: $(SOURCES) $(EXECUTABLE) $(hex)
+
 
