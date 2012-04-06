@@ -26,7 +26,7 @@ $(EXECUTABLE): $(OBJECTS)$
 
 
 hex: $(EXECUTABLE)
-	$(BIN2HEX) $(EXECUTABLE) 
+	$(BIN2HEX) -omf=elf $(EXECUTABLE) 
 	
 
 
@@ -37,7 +37,7 @@ clean:
 	$(RM) dist/$(NAME).hex
 
 program:
-	$(PROG) --dev=$(PROG) --hex=dist/$(NAME).hex
+	$(PROG) $(PROG_FLAGS) --file=dist/$(NAME).hex
 
 
 

@@ -1,5 +1,4 @@
 #edit this file to configure the toolchain
-
 #toolchain path
 C30_DIR := /Applications/microchip/mplabc30/v3.30c/bin
 
@@ -20,6 +19,7 @@ USERPORT := `ls /dev/tty.usb*`
 SHELL	= /bin/sh
 INCLUDE = -I${INC_DIR}
 CFLAGS  = -g \
+					-omf=elf \
 					-c \
 					-Werror-implicit-function-declaration \
 					-Wshadow			\
@@ -29,7 +29,12 @@ CFLAGS  = -g \
 LINKER_SCRIPT = p${PIC_TYPE}.gld
 EXTRA_CFLAGS =  -mcpu=${PIC_TYPE}
 
-LDFLAGS = -Wl,--no-check-sections,--heap=${HEAP_SIZE},-T${LINKER_SCRIPT}
+LDFLAGS = -omf=elf -Wl,--no-check-sections,--heap=${HEAP_SIZE},-T${LINKER_SCRIPT}
+
+PROG_FLAGS := -p \
+							--port=$(USERPORT) \
+							--reset-rts \
+							--device=$(PIC_TYPE)
 
 
 
@@ -41,7 +46,7 @@ CP=cp
 TOP_DIR 		= .
 SRC_DIR  		= ${TOP_DIR}/src
 OBJECT_DIR 	= ${TOP_DIR}/build
-DIST_DIR			= ${TOP_DIR}/dist
+DIST_DIR		= ${TOP_DIR}/dist
 LIB_DIR  		= ${TOP_DIR}/lib
 INC_DIR 		= ${TOP_DIR}/include
 
@@ -50,4 +55,6 @@ CC=${C30_DIR}/pic30-gcc
 AS=${C30_DIR}/pic30-as
 LD=${C30_DIR}/pic30-ld
 AR=${C30_DIR}/pic30-ar
-BIN2HEX=${C30_DIR}/pic30-bin2hex
+PROG = mono tools/bin/ds30LoaderConsole.exe
+
+BIN2HEX=${C30_DIR}/pic30-bin2hex 
