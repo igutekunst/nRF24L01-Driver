@@ -1,6 +1,7 @@
 Drivers for the nRF24L01 chipset. 
 Includes SPI drivers for PIC24F16KA102
 
+This is super pre alpha. Actually, pretty much nothing works, but some foundations have been placed. 
 
 ==Usage==
 * Clone the repository
